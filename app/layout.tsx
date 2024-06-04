@@ -1,8 +1,18 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+import { ThemeProvider } from "@/components/theme-provider";
+import Header from "@/components/ui/header";
+import type { Metadata } from "next";
+import { Onest } from "next/font/google";
+import localFont from "next/font/local";
+
+const inter = Onest({ subsets: ["latin"] });
+
+const satoshi = localFont({
+  src: "./Satoshi-Variable.woff2",
+  display: "swap",
+  variable: "--my-font",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +25,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={satoshi.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

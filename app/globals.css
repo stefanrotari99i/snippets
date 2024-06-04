@@ -2,32 +2,192 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+
+    --radius: 1rem;
+
+    --sh-background: #141414;
+    --sh-text: #c9d1d9;
+    --sh-class: #3e8cd1;
+    --sh-identifier: #607b96;
+    --sh-sign: #8996a3;
+    --sh-property: #438bfc;
+    --sh-entity: #3eeda6;
+    --sh-jsxliterals: #949dfc;
+    --sh-string: #00d9a9;
+    --sh-keyword: #ff6f61;
+    --sh-comment: #737373;
+    --sh-number: #f78c6c;
+    --sh-null: #b362ff;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 8%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+
+    --secondary: 268 88% 50%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 0 0% 8%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 268 88% 50%;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--foreground);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--foreground);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--foreground);
+}
+
+pre {
+  background-color: var(--sh-background);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+pre code {
+  counter-reset: sh-line-number;
+}
+
+.sh__line::before {
+  counter-increment: sh-line-number 1;
+  content: counter(sh-line-number);
+  margin-right: 24px;
+  text-align: right;
+  color: #a4a4a4;
+}
+
+.article {
+  @apply flex flex-col gap-3  text-lg tracking-wide mb-20;
+}
+
+.article h1 {
+  @apply text-primary text-3xl font-bold;
+}
+
+.article h2 {
+  @apply text-primary text-2xl font-bold;
+}
+
+.article h3 {
+  @apply text-primary text-xl font-bold;
+}
+
+.article h4 {
+  @apply text-primary text-lg font-bold;
+}
+
+.article h5 {
+  @apply text-primary text-base font-bold;
+}
+
+.article h6 {
+  @apply text-primary text-sm font-bold;
+}
+
+.article p {
+  @apply text-primary/60 text-base;
+}
+
+.article a {
+  @apply text-primary underline;
+}
+
+.article a:hover {
+  @apply text-primary-foreground;
+}
+
+.article ul {
+  @apply text-primary list-disc pl-6;
+}
+
+.article ol {
+  @apply text-primary list-decimal pl-6;
+}
+
+.article li {
+  @apply text-primary text-base;
+}
+
+.article blockquote {
+  @apply text-primary border-l-4 border-primary-foreground pl-4;
+}
+
+.article pre {
+  @apply text-muted-foreground my-6 text-lg rounded py-3 px-6;
+  border-radius: var(--radius);
+  white-space: pre-wrap;
 }
